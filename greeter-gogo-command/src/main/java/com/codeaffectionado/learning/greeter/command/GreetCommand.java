@@ -23,7 +23,7 @@ public class GreetCommand {
 	
 	@Reference(cardinality=ReferenceCardinality.OPTIONAL_MULTIPLE,
 			policy=ReferencePolicy.DYNAMIC,bind="setGreeter",unbind="unsetGreeter",
-			referenceInterface=Greeter.class)
+			referenceInterface=Greeter.class,target="(!(dayofweek=monday))")
 	private List<Greeter> greeter;
 
 	public void greet(){
