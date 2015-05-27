@@ -56,5 +56,6 @@
 		<module>simple-greeter</module>
 		<module>greeter-gogo-command</module>
     <module>universe-greeter</module>
+    <module>monday-greeter</module>
   </modules>
 </project>

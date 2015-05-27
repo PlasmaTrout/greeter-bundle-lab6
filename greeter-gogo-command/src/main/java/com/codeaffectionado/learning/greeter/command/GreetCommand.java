@@ -21,7 +21,7 @@ import com.codeaffectionado.learning.greeter.api.Greeter;
 })
 public class GreetCommand {
 	
-	@Reference(cardinality=ReferenceCardinality.MANDATORY_MULTIPLE,
+	@Reference(cardinality=ReferenceCardinality.OPTIONAL_MULTIPLE,
 			policy=ReferencePolicy.DYNAMIC,bind="setGreeter",unbind="unsetGreeter",
 			referenceInterface=Greeter.class)
 	private List<Greeter> greeter;
