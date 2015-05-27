@@ -1,9 +1,14 @@
 package com.codeaffectionado.learning.greeter.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.apache.felix.scr.annotations.ReferencePolicy;
 import org.apache.felix.scr.annotations.Service;
 
 import com.codeaffectionado.learning.greeter.api.Greeter;
@@ -16,10 +21,25 @@ import com.codeaffectionado.learning.greeter.api.Greeter;
 })
 public class GreetCommand {
 	
-	@Reference
-	private Greeter greeter;
+	@Reference(cardinality=ReferenceCardinality.MANDATORY_MULTIPLE,
+			policy=ReferencePolicy.DYNAMIC,bind="setGreeter",unbind="unsetGreeter",
+			referenceInterface=Greeter.class)
+	private List<Greeter> greeter;
 
 	public void greet(){
-		System.out.println(greeter.greet());
+		for(Greeter g : greeter ){
+			System.out.println(g.greet());
+		}
+	}
+	
+	public void setGreeter(Greeter greet){
+		if(greeter==null){
+			greeter = new ArrayList<Greeter>();
+		}
+		greeter.add(greet);
+	}
+	
+	public void unsetGreeter(Greeter greet){
+		greeter.remove(greet);
 	}
 }
